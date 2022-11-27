@@ -1,23 +1,56 @@
-#panel {
-    position: relative;
-    width: 50%;
-    height: 100vh;
-    margin: 0 auto;
+:root {
+    --orange: #bd5139;
+    --brightorange: #ff7e5c;
+    --white: #ede9d0;
+    --black: #3a001e;
+}
+
+body {
+    background-color: var(--white);
+}
+
+#inputBox {
     font-family: "Roboto";
     font-weight: 300;
     font-size: 1.5rem;
-    overflow-y: auto;
-}
-
-#panel::-webkit-scrollbar { /* hides scrollbar in Safari + Chrome */
-    width: 0;
-    height: 0;
+    display: inline-block;
+    margin-top: 10%;
 }
 
 #field {
-    width: 100%;
-    position: absolute;
-    background-color: white;
+    text-align: center;
+}
+
+#inputField {
+    width: 50vw;
+    font-size: 2vh;
+    margin-right: 1vw;
+    float: left;
+    margin-top: 1px;
+    padding: 2vh;
+    border-radius: 1vh;
+    border: 2px solid var(--black);
+    background-color: var(--white);
+  }
+
+#inputField:focus {
+    outline: none;
+}
+  
+#inputButton {
+    background-color: var(--brightorange);
+    border: 2px solid var(--white);
+    color: var(--white);
+    font-family: 'Roboto';
+    font-weight: 500;
+    font-size: 2vh;
+    border-radius: 1vh;
+    padding: 2vh;
+    float: left;
+}
+
+#inputButton:hover {
+    border: 1px solid var(--black);
 }
 
 p {
@@ -26,9 +59,25 @@ p {
 }
 
 .prompt {
-    color: grey;
+    color: var(--black);
 }
 
-.response {
-    color: royalblue;
+.result {
+    color: var(--orange);
+}
+
+#outputBox {
+    width: 42%;
+    margin-top: 5%;
+    overflow-y: auto;
+    display: inline-block;
+    font-family: 'Roboto';
+    font-weight: 300;
+    font-size: 1.5rem;
+    text-align: left;
+}
+
+#outputBox::-webkit-scrollbar { /* hides scrollbar in Safari + Chrome */
+    width: 0;
+    height: 0;
 }
