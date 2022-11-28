@@ -30,7 +30,7 @@ export default function GPT({ page }) {
             <div className='inputBox'>
               <form onSubmit={e => {e.preventDefault();setPromptDALLE(inputRefDALLE.current.value)}}><input ref={inputRefDALLE} type="text" className='inputField' /><input type="submit" value="TO DALL-E" className="inputButton"/></form>
             </div>
-            {resultDALLE!=='' && resultDALLE['data'].map((d,i) => <img key={i} id='outputDALLE' src={d['url']}></img>)}
+            {resultDALLE!=='' && resultDALLE['data'].map((d,i) => <img key={i} className='outputDALLE' src={d['url']}></img>)}
         </div>
       </div>
     )

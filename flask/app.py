@@ -15,9 +15,18 @@ def prompt_gpt():
 
     if request.method == 'POST':
         data = request.json
-        prompt = data['prompt']
+        compound_prompt = data['prompt']
+        compound_prompt_list = compound_prompt.split("|")
+        prompt = compound_prompt_list[0].strip()
+        if len(compound_prompt_list) > 1:
+            try:
+                max_tokens = int(compound_prompt_list[1].strip())
+            except:
+                max_tokens = 100
+        else:
+            max_tokens = 100
 
-    completion = openai.Completion.create(engine="davinci", prompt=prompt, max_tokens=64)
+    completion = openai.Completion.create(engine="davinci", prompt=prompt, max_tokens=max_tokens)
 
     return completion.choices[0].text.replace("\n", " ")
 

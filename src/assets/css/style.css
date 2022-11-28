@@ -42,6 +42,9 @@ body {
     font-size: 1.5rem;
     display: inline-block;
     margin-top: 12%;
+    margin-bottom: 6%;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 .field {
@@ -96,7 +99,6 @@ p {
 #outputBox {
     width: 60%;
     max-height: 30vh;
-    margin-top: 4%;
     overflow-y: auto;
     font-family: 'Roboto';
     font-weight: 300;
@@ -109,8 +111,16 @@ p {
     height: 0;
 }
 
-#outputDALLE {
-    margin: 4%;
+.outputDALLE {
+    margin: 1%;
     width: 512px;
     height: 512px;
+    border: 2px solid var(--white);
+    border-radius: 1vh;
+    overflow: hidden;
 }
+
+.outputDALLE:hover {
+    border: 2px solid var(--black);
+}
+
