@@ -1,6 +1,9 @@
 import openai
 from flask import Flask, request
 from flask_cors import CORS
+import requests
+import shutil
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -44,3 +47,40 @@ def prompt_dalle():
         )
 
     return response
+
+SAVEDIR = os.path.expanduser("~") + "/Desktop/DALLE/"
+
+def add_underscore(savestr):
+    n = len(os.path.basename(savestr)[:-4])
+    l = savestr.split("_")
+    if n >= 251:
+        l[0] = l[0][:-1]
+    l[-1] = "_.png"
+
+    return "_".join(l)
+
+def get_savestr(savestr):
+    if os.path.exists(savestr):
+        savestr = add_underscore(savestr)
+        return get_savestr(savestr)
+    else:
+        return savestr
+
+@app.route('/save', methods=['POST'])
+def save_dalle():
+
+    if request.method == 'POST':
+        data = request.json
+        url = data['url']
+        prompt = data['prompt']
+        savestr = get_savestr(SAVEDIR + prompt[:250] + "_.png")
+
+        try:
+            r = requests.get(url,stream=True)
+            if r.status_code == 200:
+                with open(savestr, 'wb') as f:
+                    r.raw.decode_content = True
+                    shutil.copyfileobj(r.raw, f)
+            return savestr
+        except:
+            return "error"
