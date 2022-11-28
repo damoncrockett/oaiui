@@ -9,16 +9,24 @@ body {
     background-color: var(--white);
 }
 
+#siteContainer {
+    
+}
+
 #nav {
+    padding: 2%;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 2%;
+}
+
+#navButtonContainer {
+    display: inline-block;
 }
 
 .navButton {
-    background-color: var(--white);
+    background-color: transparent;
     border: none;
     color: var(--black);
     font-family: 'Roboto';
@@ -45,6 +53,9 @@ body {
     margin-bottom: 6%;
     margin-left: 5%;
     margin-right: 5%;
+    background-color: transparent;
+    position: sticky;
+    top: 4%;
 }
 
 .field {
@@ -60,7 +71,7 @@ body {
     padding: 2vh;
     border-radius: 1vh;
     border: 2px solid var(--black);
-    background-color: var(--white);
+    background-color: transparent;
   }
 
 .inputField:focus {
@@ -69,7 +80,7 @@ body {
   
 .inputButton {
     background-color: var(--brightorange);
-    border: 2px solid var(--white);
+    border: 2px solid transparent;
     color: var(--white);
     font-family: 'Roboto';
     font-weight: 500;

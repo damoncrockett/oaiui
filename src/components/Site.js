@@ -7,10 +7,12 @@ export default function Site() {
   const [page, setPage] = useState('GPT');
 
   return (
-    <div>
+    <div id='siteContainer'>
       <div id='nav'>
-        <button className={page==='GPT' ? 'navButton active' : 'navButton'} onClick={() => setPage('GPT')}>GPT-3</button>
-        <button className={page==='DALLE' ? 'navButton active' : 'navButton'} onClick={() => setPage('DALLE')}>DALL-E</button>
+        <div id='navButtonContainer'>
+          <button className={page==='GPT' ? 'navButton active' : 'navButton'} onClick={() => setPage('GPT')}>GPT-3</button>
+          <button className={page==='DALLE' ? 'navButton active' : 'navButton'} onClick={() => setPage('DALLE')}>DALL-E</button>
+        </div>
       </div>  
       <GPT page={page}/>
       <DALLE page={page}/>
