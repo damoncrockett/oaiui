@@ -30,10 +30,8 @@ def prompt_dalle():
 
     response = openai.Image.create(
         prompt=prompt,
-        n=1,
+        n=10,
         size="1024x1024"
         )
-    
-    image_url = response['data'][0]['url']
 
-    return image_url
+    return response

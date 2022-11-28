@@ -9,15 +9,42 @@ body {
     background-color: var(--white);
 }
 
+#nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2%;
+}
+
+.navButton {
+    background-color: var(--white);
+    border: none;
+    color: var(--black);
+    font-family: 'Roboto';
+    font-weight: 500;
+    font-size: 2vh;
+    padding: 2vh;
+    float: left;
+}
+
+.navButton:hover {
+    color: var(--orange);
+}
+
+.navButton.active {
+    color: var(--brightorange);
+}
+
 .inputBox {
     font-family: "Roboto";
     font-weight: 300;
     font-size: 1.5rem;
     display: inline-block;
-    margin-top: 4%;
+    margin-top: 12%;
 }
 
-#field {
+.field {
     text-align: center;
 }
 
@@ -83,8 +110,7 @@ p {
 }
 
 #outputDALLE {
-    margin-top: 4%;
-    margin-bottom: 4%;
-    width: 768px;
-    height: 768px;
+    margin: 4%;
+    width: 512px;
+    height: 512px;
 }
