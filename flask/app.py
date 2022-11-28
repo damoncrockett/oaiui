@@ -1,5 +1,5 @@
 import openai
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import requests
 import shutil
@@ -8,9 +8,9 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-openai.organization = "org-OfwfdUVJ8Bi5vupyCQunS3NC"    
 with open("/Users/damoncrockett/Dropbox/_unshared/work/unassigned-notes/keys-credentials/openai.txt") as f:
     l = f.readlines()
+openai.organization = l[0].strip()
 openai.api_key = l[2].strip()
 
 @app.route('/gpt', methods=['POST'])
@@ -48,6 +48,21 @@ def prompt_dalle():
 
     return response
 
+@app.route('/dalle/variants', methods=['POST'])
+def get_variants():
+
+    if request.method == 'POST':
+        data = request.json
+        image = data['image']
+
+    response = openai.Image.create_variation(
+        image=open(image, "rb"),
+        n=10,
+        size="1024x1024"
+        )
+
+    return response
+
 SAVEDIR = os.path.expanduser("~") + "/Desktop/DALLE/"
 
 def add_underscore(savestr):
@@ -66,7 +81,7 @@ def get_savestr(savestr):
     else:
         return savestr
 
-@app.route('/save', methods=['POST'])
+@app.route('/dalle/save', methods=['POST'])
 def save_dalle():
 
     if request.method == 'POST':
@@ -82,6 +97,6 @@ def save_dalle():
                 with open(savestr, 'wb') as f:
                     r.raw.decode_content = True
                     shutil.copyfileobj(r.raw, f)
-            return buttonID
+            return jsonify({ "buttonID":buttonID, "savestr":savestr })
         except:
-            return "error"
+            return jsonify({ "buttonID":"error", "savestr":"error" })
