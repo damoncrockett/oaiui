@@ -19,6 +19,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
+    z-index: 11;
 }
 
 #navButtonContainer {
@@ -56,6 +57,7 @@ body {
     background-color: transparent;
     position: sticky;
     top: 4%;
+    z-index: 11;
 }
 
 .field {
