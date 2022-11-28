@@ -30,11 +30,11 @@ body {
     background-color: transparent;
     border: none;
     color: var(--black);
-    font-family: 'Roboto';
     font-weight: 500;
     font-size: 2vh;
     padding: 2vh;
     float: left;
+    font-family: "Roboto";
 }
 
 .navButton:hover {
@@ -45,35 +45,33 @@ body {
     color: var(--brightorange);
 }
 
+.field {
+    text-align: center;
+}
+
 .inputBox {
-    font-family: "Roboto";
-    font-weight: 300;
-    font-size: 1.5rem;
     display: inline-block;
     margin-top: 12%;
     margin-bottom: 6%;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 2%;
+    margin-right: 2%;
     background-color: transparent;
     position: sticky;
     top: 4%;
     z-index: 11;
 }
 
-.field {
-    text-align: center;
-}
-
 .inputField {
     width: 50vw;
     font-size: 2vh;
-    margin-right: 1vw;
+    font-weight: 300;
     float: left;
-    margin-top: 1px;
     padding: 2vh;
     border-radius: 1vh;
     border: 2px solid var(--black);
     background-color: transparent;
+    margin-left: 16px;
+    margin-right: 16px;
   }
 
 .inputField:focus {
@@ -84,15 +82,31 @@ body {
     background-color: var(--brightorange);
     border: 2px solid transparent;
     color: var(--white);
-    font-family: 'Roboto';
     font-weight: 500;
     font-size: 2vh;
     border-radius: 1vh;
     padding: 2vh;
     float: left;
+    font-family: "Roboto";
 }
 
 .inputButton:hover {
+    border: 2px solid var(--black);
+}
+
+#refreshPrompt {
+    background-color: var(--brightorange);
+    border: 2px solid transparent;
+    color: var(--white);
+    font-weight: 500;
+    font-size: 2vh;
+    border-radius: 1vh;
+    padding: 2vh;
+    float: left;
+    font-family: "Roboto";
+}
+
+#refreshPrompt:hover {
     border: 2px solid var(--black);
 }
 
@@ -113,10 +127,10 @@ p {
     width: 60%;
     max-height: 30vh;
     overflow-y: auto;
-    font-family: 'Roboto';
     font-weight: 300;
-    font-size: 1.5rem;
+    font-size: 2.5vh;
     text-align: left;
+    font-family: "Roboto";
 }
 
 #outputBox::-webkit-scrollbar { /* hides scrollbar in Safari + Chrome */
@@ -126,7 +140,7 @@ p {
 
 .imgContainer {
     display: inline-block;
-    margin: 1%;
+    margin: 8px;
     border: 2px solid var(--white);
     border-radius: 1vh;
     overflow: hidden;

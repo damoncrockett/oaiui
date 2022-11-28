@@ -28,7 +28,7 @@ export default function GPT({ page }) {
       <div id='GPT' style={{display: page==='GPT' ? 'block' : 'none' }}>
         <div className='field'>
             <div className='inputBox'>
-              <form onSubmit={e => {e.preventDefault();setPromptGPT(inputRefGPT.current.value)}}><input ref={inputRefGPT} type="text" className='inputField' /><input type="submit" value="TO GPT-3" className="inputButton"/></form>
+              <form onSubmit={e => {e.preventDefault();setPromptGPT(inputRefGPT.current.value)}}><button id='refreshPrompt'>RESUBMIT</button><input ref={inputRefGPT} type="text" className='inputField' /><input type="submit" value="SUBMIT" className="inputButton"/></form>
             </div>
             <div id='outputBox' style={{display: resultGPT === '' ? 'none' : 'inline-block' }}>
               <span className="prompt">{promptGPT.split("|")[0]}</span><span className="result">{resultGPT}</span>

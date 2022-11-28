@@ -29,7 +29,7 @@ def prompt_gpt():
         else:
             max_tokens = 100
 
-    completion = openai.Completion.create(engine="davinci", prompt=prompt, max_tokens=max_tokens)
+    completion = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=max_tokens)
 
     return completion.choices[0].text.replace("\n", " ")
 
