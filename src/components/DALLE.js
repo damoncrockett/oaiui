@@ -34,7 +34,7 @@ export default function GPT({ page }) {
 
           }, [promptDALLE]);
 
-    const saveImage = ( url, prompt, buttonID, getVariant ) => {
+    const saveImage = ( url, prompt, buttonID, getVariants ) => {
 
       const requestOptions = {
           method: 'POST',
@@ -42,21 +42,16 @@ export default function GPT({ page }) {
           body: JSON.stringify({ url: url, prompt: prompt, buttonID: buttonID })
       };
 
-      let savestr;
-
       fetch('http://127.0.0.1:5000/dalle/save', requestOptions)
         .then(response => response.json())
         .then(responseObject => {
           if ( responseObject['buttonID'] === 'error' ) {
             alert('Error saving image!');
           } else {
+            if ( getVariants ) {
+              setVariantDALLE(responseObject['savestr']);
+            }
             document.getElementById(responseObject['buttonID']).innerHTML = 'beenhere';
-            savestr = responseObject['savestr'];
-          }
-        })
-        .then(() => {
-          if ( getVariant ) {
-            setVariantDALLE(savestr);
           }
         });
     }
@@ -86,7 +81,7 @@ export default function GPT({ page }) {
             <div className='inputBox'>
               <form onSubmit={e => {e.preventDefault();setPromptDALLE(inputRefDALLE.current.value)}}><input ref={inputRefDALLE} type="text" className='inputField' /><input type="submit" value="TO DALL-E" className="inputButton"/></form>
             </div>
-            {resultDALLE!=='' && resultDALLE['data'].map((d,i) => <div className="imgContainer" key={'c'+i} onClick={() => saveImage(d['url'],promptDALLE,'b'+i,true)} ><img key={'i'+i} className='outputDALLE' src={d['url']}/><button id={'b'+i} key={'b'+i} onClick={e => {e.stopPropagation();saveImage(d['url'],promptDALLE,'b'+i,false)}} className='saveButton material-icons'>save_alt</button></div> )} 
+            {resultDALLE!=='' && resultDALLE['data'].map((d,i) => <div className="imgContainer" key={'c'+i} ><img key={'i'+i} className='outputDALLE' src={d['url']}/><button key={'v'+i} onClick={() => saveImage(d['url'],promptDALLE,'b'+i,true)} className='getVariants material-icons'>autorenew</button><button id={'b'+i} key={'b'+i} onClick={() => saveImage(d['url'],promptDALLE,'b'+i,false)} className='saveButton material-icons'>save_alt</button></div> )} 
         </div>
       </div>
     )

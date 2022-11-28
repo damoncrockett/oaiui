@@ -144,8 +144,22 @@ p {
     border: 2px solid var(--black);
 }
 
+.imgContainer:hover > .getVariants {
+    color: var(--white)
+}
+
 .imgContainer:hover > .saveButton {
     color: var(--white)
+}
+
+.getVariants {
+    font-size: 2rem;
+    position: absolute;
+    top: 0.4rem;
+    right: 0.25rem;
+    border: none;
+    background: none;
+    color: transparent;
 }
 
 .saveButton {
