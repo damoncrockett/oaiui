@@ -22,6 +22,13 @@ export default function GPT({ page }) {
 
         }
 
+        // reset saveButton innerHTML on prompt change; otherwise app will remember saveButton innerHTMLs from previously saved images
+        if ( resultDALLE !== '' ) {
+          [0,1,2,3,4,5,6,7,8,9].forEach( d => {
+            document.getElementById('b'+d).innerHTML = 'save_alt';
+          });
+        }
+
     }, [promptDALLE]);
 
     const urlToFlask = ( url, prompt, buttonID ) => {
