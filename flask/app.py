@@ -73,6 +73,7 @@ def save_dalle():
         data = request.json
         url = data['url']
         prompt = data['prompt']
+        buttonID = data['buttonID']
         savestr = get_savestr(SAVEDIR + prompt[:250] + "_.png")
 
         try:
@@ -81,6 +82,6 @@ def save_dalle():
                 with open(savestr, 'wb') as f:
                     r.raw.decode_content = True
                     shutil.copyfileobj(r.raw, f)
-            return savestr
+            return buttonID
         except:
             return "error"

@@ -145,7 +145,7 @@ p {
 }
 
 .imgContainer:hover > .saveButton {
-    color: var(--black)
+    color: var(--white)
 }
 
 .saveButton {
@@ -156,10 +156,6 @@ p {
     border: none;
     background: none;
     color: transparent;
-}
-
-.saveButton:hover {
-    color: var(--orange);
 }
 
 .material-icons {
