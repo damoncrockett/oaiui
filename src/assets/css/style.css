@@ -49,10 +49,29 @@ body {
     text-align: center;
 }
 
+.toggle {
+    background-color: var(--white);
+    border: 2px solid var(--black);
+    color: var(--black);
+    border-radius: 1vh;
+    padding: 1vh;
+}
+
+.toggle.active {
+    background-color: var(--black);
+    color: var(--white);
+}
+
+#listMode {
+    position: fixed;
+    top: 50%;
+    left: 4%;
+}
+
 .inputBox {
     display: inline-block;
-    margin-top: 12%;
-    margin-bottom: 6%;
+    margin-top: 8%;
+    margin-bottom: 4%;
     margin-left: 2%;
     margin-right: 2%;
     background-color: transparent;
@@ -115,8 +134,13 @@ p {
     margin-bottom: 4vh;
 }
 
+.outputCell {
+    margin-bottom: 4%;
+}
+
 .prompt {
     color: var(--black);
+    font-weight: 500;
 }
 
 .result {
@@ -124,13 +148,18 @@ p {
 }
 
 #outputBox {
-    width: 60%;
-    max-height: 30vh;
+    width: 75%;
+    max-height: 60vh;
     overflow-y: auto;
     font-weight: 300;
     font-size: 2.5vh;
     text-align: left;
     font-family: "Roboto";
+    white-space: pre-wrap;
+    display: inline-block;
+    border: 2px solid var(--black);
+    border-radius: 1vh;
+    padding: 4vh;
 }
 
 #outputBox::-webkit-scrollbar { /* hides scrollbar in Safari + Chrome */

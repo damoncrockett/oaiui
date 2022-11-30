@@ -31,7 +31,7 @@ def prompt_gpt():
 
     completion = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=max_tokens)
 
-    return completion.choices[0].text.replace("\n", " ")
+    return completion.choices[0].text
 
 @app.route('/dalle', methods=['POST'])
 def prompt_dalle():
