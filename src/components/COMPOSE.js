@@ -1,50 +1,8 @@
-import React, { useState, useRef, useEffect, Component } from "react";
-
-function Input({ composition, setComposition }) {
-
-  const [exspanderContent, setExspanderContent] = useState('');
-  const [width, setWidth] = useState(0);
-  const inputRef = useRef();
-  const exspanderRef = useRef();
-
-  useEffect(() => {
-    setWidth(exspanderRef.current.offsetWidth);
-  }, [exspanderContent]);
-
-  const inputChangeHandler = e => {
-    setExspanderContent(e.target.value + '-'.repeat(Math.ceil(e.target.value.length)))
-  }
-
-  const formSubmitHandler = e => {
-        
-    e.preventDefault();
-    if ( composition === '' ) {
-      setComposition(inputRef.current.value);
-    } else {
-      setComposition(composition + ' ' + inputRef.current.value);
-    }
-    inputRef.current.value='';
-    setExspanderContent('');
-  }
-
-  return (
-    
-    <form onSubmit={formSubmitHandler}>
-      <div id='inputWrap'>
-        <span ref={exspanderRef} id='exspander'>{exspanderContent}</span>
-        <input ref={inputRef} onChange={inputChangeHandler} type="text" autoFocus style={{ width }} />
-      </div>
-    </form>
-
-  )
-}
+import React, { useState, useEffect } from "react";
 
 export default function COMPOSE({ page }) {
 
     const [result,setResult] = useState('');
-    const [beforeText,setBeforeText] = useState(null);
-    const [afterText, setAfterText] = useState(null);
-    const [composition,setComposition] = useState('');
     const [previousComposition,setPreviousComposition] = useState(null);
     const [range,setRange] = useState(null);
     const [axis,setAxis] = useState('length');
@@ -56,7 +14,8 @@ export default function COMPOSE({ page }) {
       let selectedText = '';
       let textBeforeSelection = '';
 
-      const innerText = document.getElementById('composition').innerText;
+      const textarea = document.getElementById('composition');
+      const innerText = textarea.value;
       
       if ( range !== null ) {
         
@@ -98,8 +57,10 @@ export default function COMPOSE({ page }) {
     },[axis,direction,range])
 
     const submitPrompt = () => {
-
-        setPreviousComposition(composition);
+        
+        const textarea = document.getElementById('composition');
+        const innerText = textarea.value;
+        setPreviousComposition(innerText);
 
         const requestOptions = {
             method: 'POST',
@@ -117,54 +78,43 @@ export default function COMPOSE({ page }) {
 
       if ( result !== null && range !== null ) {
 
-        const innerText = document.getElementById('composition').innerText;
+        const textarea = document.getElementById('composition');
+        const innerText = textarea.value;
         const textBeforeSelection = innerText.substring(0,range[0]);
         const textAfterSelection = innerText.substring(range[1],innerText.length);
         
         const newComposition = textBeforeSelection + result + textAfterSelection;
-        setComposition(newComposition);
-        
-        setBeforeText(textBeforeSelection);
-        setAfterText(textAfterSelection);
-        
+        textarea.value = newComposition;
+        textarea.dispatchEvent(new Event('change'));
+
+        const start = textBeforeSelection.length;
+        const end = start + result.length;
+
+        const textareaChanged = document.getElementById('composition');
+        textareaChanged.setSelectionRange(start, end);
+        textareaChanged.focus();
+        setRange([start,end]);
+
       }
 
     },[result])
 
-    useEffect(() => {
-
-      if ( result !== null && beforeText !== null && afterText !== null ) {
-        
-        const selectionElement = document.getElementById('composition');
-        const newSelection = document.getSelection();
-        const newRange = document.createRange();
-        const start = beforeText.length;
-        const end = start + result.length;
-        newRange.setStart(selectionElement.firstChild,start);
-        newRange.setEnd(selectionElement.firstChild,end);
-        newSelection.removeAllRanges();
-        newSelection.addRange(newRange);
-
-        setRange([start,end]);
-      }
-      
-    },[beforeText,afterText,composition])
-
     const getSelectionRange = () => {
   
-          const selection = window.getSelection(); 
-          const newRange = selection.getRangeAt(0);
-          const start = newRange.startOffset;
-          const end = newRange.endOffset;
-          setRange([start,end]);
+        const textarea = document.getElementById('composition');
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        setRange([start,end]);
   
     }
 
     const undoSubmission = () => {
       
-      setComposition(previousComposition);
-      setPreviousComposition(null);
-
+      const textarea = document.getElementById('composition');
+      
+      textarea.value = previousComposition;
+      textarea.dispatchEvent(new Event('change'));
+      
     }
  
     return (
@@ -176,18 +126,15 @@ export default function COMPOSE({ page }) {
           <button title='technicality' className={axis==='technicality' ? 'material-icons active' : 'material-icons'} onClick={() => setAxis('technicality')}>architecture</button>
           <button title='poesy' className={axis==='poesy' ? 'material-icons active' : 'material-icons'} onClick={() => setAxis('poesy')}>palette</button>
         </div>
-        <div id='composePage'>
-          <div id='submitControls'>
-            <button title='submit prompt' className='material-icons' onClick={() => submitPrompt()}>send</button>
-            <button title='undo submission' id='undo' className='material-icons' onClick={() => undoSubmission()}>undo</button>
-            <button title='reword' className={direction==='maintain' ? 'material-icons active' : 'material-icons'} onClick={() => setDirection('maintain')}>maximize</button>
-            <button title='increase' className={direction==='increase' ? 'material-icons active' : 'material-icons'} onClick={() => setDirection('increase')}>call_made</button>
-            <button title='decrease' className={direction==='decrease' ? 'material-icons active' : 'material-icons'} onClick={() => setDirection('decrease')}>south_east</button>
-            <button title='new completion' className={direction==='new' ? 'material-icons active' : 'material-icons'} onClick={() => setDirection('new')}>add</button>
-          </div>
-          <span id='composition' onMouseUp={getSelectionRange}>{composition}</span>
-          <Input composition={composition} setComposition={setComposition} />
+        <div id='submitControls'>
+          <button title='submit prompt' className='material-icons' onClick={() => submitPrompt()}>send</button>
+          <button title='undo submission' id='undo' className='material-icons' onClick={() => undoSubmission()}>undo</button>
+          <button title='reword' className={direction==='maintain' ? 'material-icons active' : 'material-icons'} onClick={() => setDirection('maintain')}>maximize</button>
+          <button title='increase' className={direction==='increase' ? 'material-icons active' : 'material-icons'} onClick={() => setDirection('increase')}>call_made</button>
+          <button title='decrease' className={direction==='decrease' ? 'material-icons active' : 'material-icons'} onClick={() => setDirection('decrease')}>south_east</button>
+          <button title='new completion' className={direction==='new' ? 'material-icons active' : 'material-icons'} onClick={() => setDirection('new')}>add</button>
         </div>
+        <textarea id='composition' cols='40' rows='14' autoFocus onMouseUp={getSelectionRange}></textarea>
       </div>
     )
   }
