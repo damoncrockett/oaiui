@@ -11,9 +11,9 @@ export default function Site() {
     <div id='siteContainer'>
       <div id='nav'>
         <div id='navButtonContainer'>
-          <button className={page==='GPT' ? 'navButton active' : 'navButton'} onClick={() => setPage('GPT')}>GPT-3</button>
-          <button className={page==='COMPOSE' ? 'navButton active' : 'navButton'} onClick={() => setPage('COMPOSE')}>COMPOSE</button>
-          <button className={page==='DALLE' ? 'navButton active' : 'navButton'} onClick={() => setPage('DALLE')}>DALL-E</button>
+          <button className={page==='GPT' ? 'navButton material-icons active' : 'navButton material-icons'} onClick={() => setPage('GPT')}>question_answer</button>
+          <button className={page==='COMPOSE' ? 'navButton material-icons active' : 'navButton material-icons'} onClick={() => setPage('COMPOSE')}>create</button>
+          <button className={page==='DALLE' ? 'navButton material-icons active' : 'navButton material-icons'} onClick={() => setPage('DALLE')}>image</button>
         </div>
       </div>  
       <GPT page={page}/>

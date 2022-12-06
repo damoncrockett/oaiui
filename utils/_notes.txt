@@ -1,0 +1,17 @@
+- Sometimes the selection gets one off, (or even more off) --- not after a result; I mean right after you click and drag. The selection added to state is simple not what was selected
+
+- Lots of issues are periods and spaces
+  - you REALLY need to be able to edit the text like normal
+
+- Maybe include a mode for visual language, to use for prompting DALL-E
+
+- Right now the 'new' prompt only works if there is something preceding the selection (since it takes that as its prompt)
+
+- Occasionally, the selection simply doesn't update in time
+  - I guess React is waiting to actually update the state
+
+
+
+DALLE
+-needs a "more like this"
+-needs editing, txt2txt

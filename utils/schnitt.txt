@@ -1,0 +1,3 @@
+          <form onSubmit={e => {e.preventDefault();setSpanList([...spanList,inputRef.current.value]);inputRef.current.value='';setSpanContent('')}}><div id='inputWrap'><span ref={spanRef} id='exspander'>{spanContent}</span><input ref={inputRef} onChange={e => setSpanContent(e.target.value)} type="text" className='composeBox' autoFocus style={{ width }} /></div></form>
+
+spanList.map((d,i) => <span key={i} id={'c'+i} onClick={e => chunkClickHandler(e,'c'+i)} className={highlightedChunk === 'c'+i ? "composeChunk highlighted" : "composeChunk"}>{d}</span>)
