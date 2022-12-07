@@ -116,6 +116,25 @@ export default function COMPOSE({ page }) {
       textarea.dispatchEvent(new Event('change'));
       
     }
+
+    const saveText = () => {
+
+      const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: document.getElementById('composition').value })
+      };
+
+      fetch('http://127.0.0.1:5000/gpt/save', requestOptions)
+        .then(response => response.json())
+        .then(responseObject => {
+          if ( responseObject['response'] === 'error' ) {
+            alert('Error saving text!');
+          } else if ( responseObject['response'] === 'success' ) {
+            alert('Text saved!');
+          }
+        });
+    }
  
     return (
       <div id='COMPOSE' style={{display: page==='COMPOSE' ? 'block' : 'none' }}>
@@ -133,8 +152,9 @@ export default function COMPOSE({ page }) {
           <button title='increase' className={direction==='increase' ? 'material-icons active' : 'material-icons'} onClick={() => setDirection('increase')}>call_made</button>
           <button title='decrease' className={direction==='decrease' ? 'material-icons active' : 'material-icons'} onClick={() => setDirection('decrease')}>south_east</button>
           <button title='new completion' className={direction==='new' ? 'material-icons active' : 'material-icons'} onClick={() => setDirection('new')}>add</button>
+          <button title='save text'id='saveText' className='material-icons' onClick={saveText}>save</button>
         </div>
-        <textarea id='composition' cols='40' rows='14' autoFocus onMouseUp={getSelectionRange}></textarea>
+        <textarea id='composition' cols='70' rows='14' autoFocus onMouseUp={getSelectionRange}></textarea>
       </div>
     )
   }

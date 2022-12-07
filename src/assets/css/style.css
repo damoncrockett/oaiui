@@ -306,6 +306,10 @@ COMPOSE
     margin-bottom: 5vh !important;
 }
 
+#saveText {
+    margin-top: 5vh !important;
+}
+
 #composition {
     font-size: 3vh;
     font-family: 'Bellefair', serif;

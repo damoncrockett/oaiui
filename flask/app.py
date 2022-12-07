@@ -4,6 +4,7 @@ from flask_cors import CORS
 import requests
 import shutil
 import os
+from collections import Counter
 
 app = Flask(__name__)
 CORS(app)
@@ -32,6 +33,25 @@ def prompt_gpt():
     completion = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=max_tokens)
 
     return completion.choices[0].text
+
+SAVEGPT = os.path.expanduser("~") + "/Desktop/GPT/"
+
+@app.route('/gpt/save', methods=['POST'])
+def save_gpt():
+
+    if request.method == 'POST':
+        data = request.json
+        text = data['text']
+
+    fstring = '_'.join([item[0] for item in Counter(text.split(" ")).most_common()[:16]])
+    savestr = get_savestr(SAVEGPT + fstring + ".txt")
+
+    try:
+        with open(savestr, 'wb') as f:
+            f.write(text.encode('utf-8'))
+        return jsonify({ "response":"success" })
+    except:
+        return jsonify({ "response":"error" })
 
 @app.route('/dalle', methods=['POST'])
 def prompt_dalle():
@@ -63,7 +83,7 @@ def get_variants():
 
     return response
 
-SAVEDIR = os.path.expanduser("~") + "/Desktop/DALLE/"
+SAVEDALLE = os.path.expanduser("~") + "/Desktop/DALLE/"
 
 def add_underscore(savestr):
     n = len(os.path.basename(savestr)[:-4])
@@ -89,7 +109,7 @@ def save_dalle():
         url = data['url']
         prompt = data['prompt']
         buttonID = data['buttonID']
-        savestr = get_savestr(SAVEDIR + prompt[:250] + "_.png")
+        savestr = get_savestr(SAVEDALLE + prompt[:250] + "_.png")
 
         try:
             r = requests.get(url,stream=True)
