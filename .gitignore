@@ -26,4 +26,4 @@ utils/*.ipynb
 
 src/assets/txt
 
-flask/app.env
+flask/.env
