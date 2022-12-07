@@ -9,10 +9,8 @@ from collections import Counter
 app = Flask(__name__)
 CORS(app)
 
-with open("/Users/damoncrockett/Dropbox/_unshared/work/unassigned-notes/keys-credentials/openai.txt") as f:
-    l = f.readlines()
-openai.organization = l[0].strip()
-openai.api_key = l[2].strip()
+openai.organization = os.getenv("OPENAI_ORGANIZATION")
+openai.api_key = os.getenv("OPENAI_API_KEY") 
 
 @app.route('/gpt', methods=['POST'])
 def prompt_gpt():
@@ -26,9 +24,9 @@ def prompt_gpt():
             try:
                 max_tokens = int(compound_prompt_list[1].strip())
             except:
-                max_tokens = 100
+                max_tokens = 120
         else:
-            max_tokens = 100
+            max_tokens = 120
 
     completion = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=max_tokens)
 

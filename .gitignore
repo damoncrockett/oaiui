@@ -25,3 +25,5 @@ utils/.ipynb_checkpoints
 utils/*.ipynb
 
 src/assets/txt
+
+flask/app.env
