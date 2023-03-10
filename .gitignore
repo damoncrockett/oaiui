@@ -24,6 +24,8 @@ utils/.ipynb_checkpoints
 
 utils/*.ipynb
 
+utils/.env
+
 src/assets/txt
 
 flask/.env
